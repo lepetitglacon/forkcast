@@ -1,0 +1,294 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Excalifont (sketch mode) is declared in /fonts/excalifont.css, linked from index.html;
+   --font-sketch falls back to system hand-written fonts when it is missing. */
+
+:root {
+  --background: oklch(0.985 0.003 90);
+  --foreground: oklch(0.22 0.02 260);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.02 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.02 260);
+  --primary: oklch(0.53 0.2 268);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.95 0.01 260);
+  --secondary-foreground: oklch(0.28 0.02 260);
+  --muted: oklch(0.955 0.006 260);
+  --muted-foreground: oklch(0.5 0.02 260);
+  --accent: oklch(0.945 0.012 262);
+  --accent-foreground: oklch(0.25 0.02 260);
+  --destructive: oklch(0.58 0.22 25);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.9 0.01 260);
+  --input: oklch(0.88 0.01 260);
+  --ring: oklch(0.6 0.16 268);
+  --and: oklch(0.58 0.14 240);
+  --or: oklch(0.7 0.17 65);
+  --ai: oklch(0.56 0.21 295);
+  --canvas: oklch(0.975 0.004 90);
+  --edge: oklch(0.72 0.02 260);
+  --radius: 0.625rem;
+}
+
+.dark {
+  --background: oklch(0.19 0.015 260);
+  --foreground: oklch(0.95 0.01 260);
+  --card: oklch(0.24 0.015 260);
+  --card-foreground: oklch(0.95 0.01 260);
+  --popover: oklch(0.24 0.015 260);
+  --popover-foreground: oklch(0.95 0.01 260);
+  --primary: oklch(0.72 0.16 268);
+  --primary-foreground: oklch(0.15 0.02 260);
+  --secondary: oklch(0.3 0.015 260);
+  --secondary-foreground: oklch(0.95 0.01 260);
+  --muted: oklch(0.29 0.012 260);
+  --muted-foreground: oklch(0.7 0.02 260);
+  --accent: oklch(0.32 0.02 262);
+  --accent-foreground: oklch(0.95 0.01 260);
+  --destructive: oklch(0.66 0.2 25);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.33 0.015 260);
+  --input: oklch(0.38 0.015 260);
+  --ring: oklch(0.65 0.15 268);
+  --and: oklch(0.72 0.13 240);
+  --or: oklch(0.78 0.16 70);
+  --ai: oklch(0.74 0.16 295);
+  --canvas: oklch(0.17 0.012 260);
+  --edge: oklch(0.5 0.02 260);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-and: var(--and);
+  --color-or: var(--or);
+  --color-ai: var(--ai);
+  --color-canvas: var(--canvas);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-sketch: 'Excalifont', 'Segoe Print', 'Comic Sans MS', cursive;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+/* Hand-drawn look */
+.sketch {
+  font-family: var(--font-sketch);
+}
+.sketch .react-flow__edge-path {
+  stroke-dasharray: 0;
+  stroke-linecap: round;
+}
+
+/* React Flow overrides */
+.react-flow {
+  --xy-background-color: var(--canvas);
+}
+.react-flow__node {
+  cursor: default;
+}
+.react-flow__node.draggable {
+  cursor: grab;
+}
+.react-flow__node.dragging {
+  cursor: grabbing;
+}
+.react-flow__handle.fc-handle {
+  width: 6px;
+  height: 6px;
+  min-width: 0;
+  min-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  border: none;
+}
+.react-flow__edge-path {
+  stroke: var(--edge);
+  stroke-width: 1.5;
+}
+.react-flow__edge.fc-highlight .react-flow__edge-path {
+  stroke: var(--primary);
+  stroke-width: 2.5;
+}
+.react-flow__edge.fc-dim {
+  opacity: 0.3;
+}
+.react-flow__minimap {
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.react-flow__controls {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.15);
+}
+
+@keyframes fc-ai-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--ai) 60%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 9px color-mix(in oklab, var(--ai) 15%, transparent);
+  }
+}
+.fc-ai-highlight {
+  animation: fc-ai-pulse 1.4s ease-in-out infinite;
+}
+
+/* "+" handle: small round button detached from the card, linked to it by a short stub in
+   the edge colour; hidden until the card is hovered or selected. */
+.react-flow__handle.fc-add {
+  --fc-add-size: 20px;
+  --fc-add-gap: 8px;
+  width: var(--fc-add-size);
+  height: var(--fc-add-size);
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1.5px solid var(--edge);
+  background: var(--card);
+  color: var(--muted-foreground);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease;
+  cursor: crosshair;
+  z-index: 5;
+}
+.react-flow__handle.fc-add::before {
+  content: '';
+  position: absolute;
+  background: var(--edge);
+  pointer-events: none;
+}
+/* placement: outside the card on the children side; "offset" moves it off the outgoing edges */
+.react-flow__handle.fc-add[data-handlepos='right'] {
+  left: auto;
+  right: calc(-1 * (var(--fc-add-size) + var(--fc-add-gap)));
+  top: calc(50% - var(--fc-add-size) / 2);
+  bottom: auto;
+}
+.react-flow__handle.fc-add[data-handlepos='left'] {
+  right: auto;
+  left: calc(-1 * (var(--fc-add-size) + var(--fc-add-gap)));
+  top: calc(50% - var(--fc-add-size) / 2);
+  bottom: auto;
+}
+.react-flow__handle.fc-add[data-handlepos='bottom'] {
+  top: auto;
+  bottom: calc(-1 * (var(--fc-add-size) + var(--fc-add-gap)));
+  left: calc(50% - var(--fc-add-size) / 2);
+  right: auto;
+}
+.react-flow__handle.fc-add[data-handlepos='top'] {
+  bottom: auto;
+  top: calc(-1 * (var(--fc-add-size) + var(--fc-add-gap)));
+  left: calc(50% - var(--fc-add-size) / 2);
+  right: auto;
+}
+.react-flow__handle.fc-add.fc-add-offset[data-handlepos='right'],
+.react-flow__handle.fc-add.fc-add-offset[data-handlepos='left'] {
+  top: calc(50% + 12px);
+}
+.react-flow__handle.fc-add.fc-add-offset[data-handlepos='bottom'],
+.react-flow__handle.fc-add.fc-add-offset[data-handlepos='top'] {
+  left: calc(50% + 14px);
+}
+.react-flow__handle.fc-add[data-handlepos='right']::before,
+.react-flow__handle.fc-add[data-handlepos='left']::before {
+  top: calc(50% - 0.75px);
+  width: var(--fc-add-gap);
+  height: 1.5px;
+}
+.react-flow__handle.fc-add[data-handlepos='right']::before {
+  right: 100%;
+}
+.react-flow__handle.fc-add[data-handlepos='left']::before {
+  left: 100%;
+}
+.react-flow__handle.fc-add[data-handlepos='bottom']::before,
+.react-flow__handle.fc-add[data-handlepos='top']::before {
+  left: calc(50% - 0.75px);
+  width: 1.5px;
+  height: var(--fc-add-gap);
+}
+.react-flow__handle.fc-add[data-handlepos='bottom']::before {
+  bottom: 100%;
+}
+.react-flow__handle.fc-add[data-handlepos='top']::before {
+  top: 100%;
+}
+.react-flow__node:hover .react-flow__handle.fc-add,
+.react-flow__node.selected .react-flow__handle.fc-add,
+.react-flow__handle.fc-add.connectingfrom {
+  opacity: 1;
+  transform: scale(1);
+}
+.react-flow__node .react-flow__handle.fc-add:hover,
+.react-flow__handle.fc-add.connectingfrom {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  transform: scale(1.15);
+  box-shadow: 0 2px 8px color-mix(in oklab, var(--primary) 40%, transparent);
+}
+.sketch .react-flow__handle.fc-add {
+  border-color: transparent;
+}
+.sketch .react-flow__handle.fc-add:hover,
+.sketch .react-flow__handle.fc-add.connectingfrom {
+  border-color: transparent;
+}
+/* while dragging from a "+" */
+.fc-connecting,
+.fc-connecting .react-flow__pane,
+.fc-connecting .react-flow__node,
+.fc-connecting .react-flow__handle {
+  cursor: copy !important;
+}

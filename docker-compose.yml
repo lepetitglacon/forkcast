@@ -1,0 +1,52 @@
+# Development / self-hosting stack: MongoDB + API/collab/MCP server + static web (nginx).
+#   docker compose up --build          → http://localhost:8080
+#   docker compose up -d mongo         → only the database, then `pnpm dev` on the host
+services:
+  mongo:
+    image: mongo:8
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ['CMD', 'mongosh', '--quiet', '--eval', "db.runCommand({ ping: 1 }).ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  server:
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      PORT: 3000
+      MONGO_URI: mongodb://mongo:27017/forkcast
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production}
+      # Public URLs as seen by browsers and MCP clients (through the web proxy)
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8080}
+      WEB_URL: ${WEB_URL:-http://localhost:8080}
+      COLLAB_DEBOUNCE: 2000
+      MCP_RATE_LIMIT: 120
+    ports:
+      - '3000:3000'
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        VITE_API_URL: ''
+        VITE_WS_URL: ''
+    restart: unless-stopped
+    depends_on:
+      - server
+    ports:
+      - '8080:80'
+
+volumes:
+  mongo-data:

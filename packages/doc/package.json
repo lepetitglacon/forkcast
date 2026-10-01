@@ -1,0 +1,48 @@
+{
+  "name": "@forkcast/doc",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Yjs document schema, business commands, deterministic snapshot, JSON conversion, migrations",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "@forkcast/source": "./src/index.ts",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "pnpm -w exec eslint packages/doc/src packages/doc/test"
+  },
+  "dependencies": {
+    "@forkcast/shared": "workspace:*",
+    "fractional-indexing": "^4.0.0",
+    "nanoid": "catalog:",
+    "yjs": "catalog:"
+  },
+  "devDependencies": {
+    "@forkcast/engine": "workspace:*",
+    "@types/node": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
