@@ -5,7 +5,9 @@ RUN npm install -g pnpm@12.6.0
 WORKDIR /repo
 ARG VITE_API_URL=
 ARG VITE_WS_URL=
-ENV VITE_API_URL=$VITE_API_URL VITE_WS_URL=$VITE_WS_URL
+ARG VITE_KOFI_URL=
+ARG VITE_REPO_URL=
+ENV VITE_API_URL=$VITE_API_URL VITE_WS_URL=$VITE_WS_URL VITE_KOFI_URL=$VITE_KOFI_URL VITE_REPO_URL=$VITE_REPO_URL
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml turbo.json tsconfig.base.json ./
 COPY packages/shared/package.json packages/shared/
 COPY packages/engine/package.json packages/engine/
