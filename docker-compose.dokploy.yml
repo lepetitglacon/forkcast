@@ -54,6 +54,14 @@ services:
       - server
     expose:
       - '80'
+    # Traefik reaches `web` through dokploy-network; `default` keeps the `server` upstream resolvable.
+    networks:
+      - default
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true
 
 volumes:
   mongo-data:
